@@ -57,7 +57,7 @@ resource "aws_security_group" "sg_22_80" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.my_ip]
   }
 
   ingress {
@@ -67,10 +67,9 @@ resource "aws_security_group" "sg_22_80" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-
   ingress {
-    from_port   = 8080
-    to_port     = 8080
+    from_port   = 443
+    to_port     = 443
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -94,8 +93,4 @@ resource "aws_instance" "web" {
   tags = {
     Name = "Learn-CloudInit"
   }
-}
-
-output "public_ip" {
-  value = aws_instance.web.public_ip
 }

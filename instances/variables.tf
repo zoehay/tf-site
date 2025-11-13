@@ -12,7 +12,8 @@ variable "environment_tag" {
   default     = "Learn"
 }
 
-variable "region" {
-  description = "The region Terraform deploys your instance"
-  default     = "us-east-1"
+variable "my_ip" {
+  description = "ip allow ssh from my ip"
+  type        = string
+  sensitive   = true
 }
