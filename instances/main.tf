@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "us-west-2"
+  region  = "us-west-2"
   profile = "terraform"
 }
 
@@ -88,7 +88,10 @@ resource "aws_instance" "web" {
   subnet_id                   = aws_subnet.subnet_public.id
   vpc_security_group_ids      = [aws_security_group.sg_22_80.id]
   associate_public_ip_address = true
-  user_data                   = file("../scripts/add-ssh-web-app.yaml")
+
+  user_data = templatefile("../scripts/add-ssh-web-app.yaml", {
+    init_script = indent(6, file("../scripts/init.sh"))
+  })
 
   tags = {
     Name = "Learn-CloudInit"
