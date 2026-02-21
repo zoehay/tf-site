@@ -1,4 +1,13 @@
-.env
+*.env*
+secrets/
+certs/
+.vscode
+data/
+www/
+
+.DS_Store
+Thumbs.db
+
 # Local .terraform directories
 .terraform/
 
