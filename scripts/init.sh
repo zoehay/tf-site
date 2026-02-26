@@ -1,14 +1,8 @@
 #!/bin/bash 
 
-docker network inspect "armory-network" > /dev/null
+docker network inspect "site-network" > /dev/null
 if [ $? -ne 0 ]; then
-    docker network create -d bridge armory-network
+    docker network create -d bridge site-network
 else 
     echo "network already created"
 fi
-
-sh create-db.sh && \
-
-sh create-armory.sh && \
-
-sh create-nginx.sh 

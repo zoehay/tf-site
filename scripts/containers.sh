@@ -1,14 +1,6 @@
 #!/bin/bash
 
-docker network inspect "site-network" > /dev/null
-if [ $? -ne 0 ]; then
-    docker network create -d bridge site-network
-else 
-    echo "network already created"
-fi
-
 # nginx with mounted conf file for dev
-
 docker container create \
     --name nginx \
     --restart unless-stopped \
@@ -19,9 +11,17 @@ docker container create \
     -p 443:443 \
     nginx:tf-site
 
+# docker container create \
+#     --name nginx \
+#     --restart unless-stopped \
+#     --network site-network \
+#     -v /etc/letsencrypt/:/etc/letsencrypt/ \
+#     -p 80:80 \
+#     -p 443:443 \
+#     nginx:tf-site
+
 
 #### e-commerce 
-
 docker container create \
     --name db \
     --restart unless-stopped \
@@ -49,14 +49,13 @@ docker container create \
 
 
 #### gw2-armory
-
 docker container create \
     --name armory-db \
-    --network armory-network \
+    --network site-network \
     -e POSTGRES_USER=postgres \
     -e POSTGRES_DB=armory \
     -e POSTGRES_PASSWORD_FILE=/run/secrets/db_password.txt \
-    -v armorydb:/var/lib/postgresql/data \
+    -v tfarmorydb:/var/lib/postgresql/data \
     -v $(pwd)/secrets/armory_db_password.txt:/run/secrets/db_password.txt:ro \
     postgres:16
 
@@ -64,7 +63,8 @@ docker container create \
     --name armory-backend \
     --restart unless-stopped \
     -e ARMORY_DB_PASSWORD_FILE=/run/secrets/db_password.txt \
-    -e CORS_ALLOW_ORIGIN='https://localhost http://localhost' \
-    --network armory-network \
+    -e CORS_ALLOW_ORIGIN='https://armory.localhost http://armory.localhost' \
+    -e DOMAIN='armory.localhost' \
+    --network site-network \
     -v $(pwd)/secrets/armory_db_password.txt:/run/secrets/db_password.txt:ro \
     armory-backend
