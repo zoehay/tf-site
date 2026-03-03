@@ -1,0 +1,19 @@
+services:
+  nginx:
+    image: nginx:tf-site
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      # - ./conf:/etc/nginx/conf.d:ro
+      # - ./certs:/etc/ssl/certs:ro
+      - ./local-certs/certs:/etc/nginx/certs:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - proxy-net
+
+networks:
+  proxy-net:
+    external: true
