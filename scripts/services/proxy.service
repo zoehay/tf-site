@@ -1,0 +1,33 @@
+# /etc/systemd/system/proxy.service
+[Unit]
+Description=Proxy nginx via Docker Compose
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/compose/proxy
+
+# ExecStartPre=/usr/bin/docker compose pull --quiet
+ExecStart=/usr/bin/docker compose up --detach 
+ExecStop=/usr/bin/docker compose stop
+
+Restart=on-failure
+RestartSec=10s
+TimeoutStartSec=120
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=personal-site-proxy
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+
+
+

@@ -1,0 +1,26 @@
+# /etc/systemd/system/gw2-armory.service
+[Unit]
+Description=gw2-armory server and db via Docker Compose
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/compose/gw2-armory
+
+# ExecStartPre=/usr/bin/docker compose pull --quiet
+ExecStart=/usr/bin/docker compose up --detach 
+ExecStop=/usr/bin/docker compose stop
+
+Restart=on-failure
+RestartSec=10s
+TimeoutStartSec=120
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=gw2-armory
+
+[Install]
+WantedBy=multi-user.target

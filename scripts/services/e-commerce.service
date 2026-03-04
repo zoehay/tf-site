@@ -1,0 +1,25 @@
+# /etc/systemd/system/e-commerce.service
+[Unit]
+Description=E-commerce server and db via Docker Compose
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/compose/e-commerce
+
+ExecStart=/usr/bin/docker compose up --detach 
+ExecStop=/usr/bin/docker compose stop
+
+Restart=on-failure
+RestartSec=10s
+TimeoutStartSec=120
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=e-commerce
+
+[Install]
+WantedBy=multi-user.target
