@@ -1,0 +1,40 @@
+services:
+  armory-backend:
+    image: armory-backend
+    container_name: armory-backend
+    restart: always
+    environment:
+      - ARMORY_DB_PASSWORD_FILE=/run/secrets/db_password.txt
+      - CORS_ALLOW_ORIGIN='https://armory.localhost http://armory.localhost'
+      - DOMAIN='armory.localhost'
+    volumes:
+      # - /etc/gw2-armory/secrets:/run/secrets:ro
+      - ../../secrets/armory_db_password.txt:/run/secrets/db_password.txt:ro
+    networks:
+      - armory-net
+      - proxy-net
+    depends_on:
+      - armory-db
+
+  armory-db:
+    image: postgres:16
+    container_name: armory-db
+    restart: always
+    environment:
+      POSTGRES_DB: armory
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password.txt
+    volumes:
+      - tfarmorydb:/var/lib/postgresql/data
+      # - /etc/gw2-armory/secrets:/run/secrets:ro
+      - ../../secrets/armory_db_password.txt:/run/secrets/db_password.txt:ro
+    networks:
+      - armory-net
+
+volumes:
+  tfarmorydb:
+
+networks:
+  armory-net:
+  proxy-net:
+    external: true
