@@ -10,8 +10,9 @@ Type=oneshot
 RemainAfterExit=yes
 WorkingDirectory=/opt/compose/e-commerce
 
-ExecStart=/usr/bin/docker compose up --detach 
-ExecStop=/usr/bin/docker compose stop
+ExecStart=/usr/bin/docker compose -f /opt/app/e-commerce/compose.yml up --detach 
+ExecStop=/usr/bin/docker compose -f /opt/app/e-commerce/compose.yml down
+ExecReload=/usr/bin/docker -f /opt/app/e-commerce/compose.yml compose up -d --remove-orphans
 
 Restart=on-failure
 RestartSec=10s

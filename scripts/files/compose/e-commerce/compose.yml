@@ -13,7 +13,7 @@ services:
       - CORS_ALLOW_ORIGIN='https://angular-e-commerce.localhost https://e-commerce.localhost'
     volumes:
       # - /etc/app1/secrets:/run/secrets:ro
-      - ../../secrets/ecom_db_password.txt:/run/secrets/db_password.txt:ro
+      - ./secrets/ecom_db_password.txt:/run/secrets/db_password.txt:ro
     networks:
       - e-commerce-net
       - proxy-net
