@@ -10,10 +10,9 @@ services:
       - DB_PORT=5432
       - DB_NAME=ecommerce
       - DB_SCHEMA=public
-      - CORS_ALLOW_ORIGIN='https://angular-e-commerce.localhost https://e-commerce.localhost'
+      - CORS_ALLOW_ORIGIN='https://angular-e-commerce.zoemhay.com https://e-commerce.zoemhay.com'
     volumes:
-      # - /etc/app1/secrets:/run/secrets:ro
-      - ./secrets/ecom_db_password.txt:/run/secrets/db_password.txt:ro
+      - ./secrets/db_password.txt:/run/secrets/db_password.txt:ro
     networks:
       - e-commerce-net
       - proxy-net
@@ -30,8 +29,7 @@ services:
       POSTGRES_PASSWORD_FILE: /run/secrets/db_password.txt
     volumes:
       - ecomm:/var/lib/postgresql/data
-      # - /etc/app1/secrets:/run/secrets:ro
-      - ../../secrets/ecom_db_password.txt:/run/secrets/db_password.txt:ro
+      - ./secrets/db_password.txt:/run/secrets/db_password.txt:ro
     networks:
       - e-commerce-net
 

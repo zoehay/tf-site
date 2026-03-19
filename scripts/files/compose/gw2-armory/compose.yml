@@ -5,11 +5,10 @@ services:
     restart: always
     environment:
       - ARMORY_DB_PASSWORD_FILE=/run/secrets/db_password.txt
-      - CORS_ALLOW_ORIGIN='https://armory.localhost http://armory.localhost'
-      - DOMAIN='armory.localhost'
+      - CORS_ALLOW_ORIGIN='https://gw2-armory.com'
+      - DOMAIN='gw2-armory.com'
     volumes:
-      # - /etc/gw2-armory/secrets:/run/secrets:ro
-      - ../../secrets/armory_db_password.txt:/run/secrets/db_password.txt:ro
+      - ./secrets/db_password.txt:/run/secrets/db_password.txt:ro
     networks:
       - armory-net
       - proxy-net
@@ -26,8 +25,7 @@ services:
       POSTGRES_PASSWORD_FILE: /run/secrets/db_password.txt
     volumes:
       - tfarmorydb:/var/lib/postgresql/data
-      # - /etc/gw2-armory/secrets:/run/secrets:ro
-      - ../../secrets/armory_db_password.txt:/run/secrets/db_password.txt:ro
+      - ./secrets/db_password.txt:/run/secrets/db_password.txt:ro
     networks:
       - armory-net
 
