@@ -1,6 +1,6 @@
 services:
   backend:
-    image: backend:e-commerce
+    image: e-commerce
     container_name: e-commerce-backend
     restart: always
     environment:
@@ -12,8 +12,7 @@ services:
       - DB_SCHEMA=public
       - CORS_ALLOW_ORIGIN='https://angular-e-commerce.localhost https://e-commerce.localhost'
     volumes:
-      # - /etc/app1/secrets:/run/secrets:ro
-      - ../../secrets/ecom_db_password.txt:/run/secrets/db_password.txt:ro
+      - ./secrets/db_password.txt:/run/secrets/db_password.txt:ro
     networks:
       - e-commerce-net
       - proxy-net
@@ -30,8 +29,7 @@ services:
       POSTGRES_PASSWORD_FILE: /run/secrets/db_password.txt
     volumes:
       - ecomm:/var/lib/postgresql/data
-      # - /etc/app1/secrets:/run/secrets:ro
-      - ../../secrets/ecom_db_password.txt:/run/secrets/db_password.txt:ro
+      - ./secrets/db_password.txt:/run/secrets/db_password.txt:ro
     networks:
       - e-commerce-net
 

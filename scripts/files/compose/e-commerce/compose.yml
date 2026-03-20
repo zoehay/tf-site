@@ -1,6 +1,6 @@
 services:
   backend:
-    image: backend:e-commerce
+    image: e-commerce
     container_name: e-commerce-backend
     restart: always
     environment:
