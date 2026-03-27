@@ -1,14 +1,20 @@
 provider "aws" {
-  region  = "us-west-2"
+  region  = var.aws_region
   profile = "terraform"
 }
 
 data "aws_ami" "ubuntu" {
   most_recent = true
+  owners = ["099720109477"] # Canonical
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-arm64-server-*"]
+  }
+
+  filter {
+    name   = "architecture"
+    values = ["arm64"]
   }
 
   filter {
@@ -16,7 +22,10 @@ data "aws_ami" "ubuntu" {
     values = ["hvm"]
   }
 
-  owners = ["099720109477"] # Canonical
+  filter {
+    name   = "state"
+    values = ["available"]
+  }
 }
 
 resource "aws_vpc" "vpc" {
@@ -32,6 +41,8 @@ resource "aws_internet_gateway" "igw" {
 resource "aws_subnet" "subnet_public" {
   vpc_id     = aws_vpc.vpc.id
   cidr_block = var.cidr_subnet
+  availability_zone       = var.availability_zone
+  map_public_ip_on_launch = false 
 }
 
 resource "aws_route_table" "rtb_public" {
@@ -84,7 +95,7 @@ resource "aws_security_group" "sg_22_80" {
 
 resource "aws_instance" "web" {
   ami                         = data.aws_ami.ubuntu.id
-  instance_type               = "t4g.small"
+  instance_type               = "t4g.micro"
   subnet_id                   = aws_subnet.subnet_public.id
   vpc_security_group_ids      = [aws_security_group.sg_22_80.id]
   associate_public_ip_address = true
