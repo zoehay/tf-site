@@ -8,11 +8,12 @@ Wants=network-online.target
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-WorkingDirectory=/opt/compose/proxy
+User=ec2-user
+WorkingDirectory=/opt/app/site/compose/proxy
 
-ExecStart=/usr/bin/docker compose -f /opt/app/proxy/compose.yml up --detach 
-ExecStop=/usr/bin/docker compose -f /opt/app/proxy/compose.yml down
-ExecReload=/usr/bin/docker compose -f /opt/app/proxy/compose.yml exec -T nginx nginx -s reload
+ExecStart=/usr/bin/docker compose -f /opt/app/site/compose/proxy/compose.yml up --detach 
+ExecStop=/usr/bin/docker compose -f /opt/app/site/compose/proxy/compose.yml down
+ExecReload=/usr/bin/docker compose -f /opt/app/site/compose/proxy/compose.yml exec -T nginx nginx -s reload
 
 Restart=on-failure
 RestartSec=10s

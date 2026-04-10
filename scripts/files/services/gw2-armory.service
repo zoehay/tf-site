@@ -8,11 +8,12 @@ Wants=network-online.target
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-WorkingDirectory=/opt/compose/gw2-armory
+User=ec2-user
+WorkingDirectory=/opt/app/site/compose/gw2-armory
 
-ExecStart=/usr/bin/docker -f /opt/app/gw2-armory/compose.yml compose up --detach 
-ExecStop=/usr/bin/docker -f /opt/app/gw2-armory/compose.yml compose down
-ExecReload=/usr/bin/docker -f /opt/app/gw2-armory/compose.yml compose up -d --remove-orphans
+ExecStart=/usr/bin/docker compose -f /opt/app/site/compose/gw2-armory/compose.yml compose up --detach 
+ExecStop=/usr/bin/docker compose -f /opt/app/site/compose/gw2-armory/compose.yml compose down
+ExecReload=/usr/bin/docker compose -f /opt/app/site/compose/gw2-armory/compose.yml compose up -d --remove-orphans
 
 Restart=on-failure
 RestartSec=10s

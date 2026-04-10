@@ -1,21 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 
-# Application Init
-# For a fresh instance 
-# - Copy compose files, service files, and scripts to /opt/app/site
-#   - cp -r files/ /opt/app/site
-# - Check that HTTPS block in nginx is commented out
-# - Manually write secret files 
-#   - touch /opt/app/site/compose/e-commerce/secrets/ecom_db_password.txt
-#   - touch /opt/app/site/compose/gw2-armory/secrets/armory_db_password.txt
-#   - Sign into docker 
-
 APP_DIR="/opt/app/site"
 SYSTEMD_DIR="/etc/systemd/system"
 CERTBOT_WEBROOT="/var/www/certbot"
 NGINX_HOOK="/etc/letsencrypt/renewal-hooks/post/reload-nginx.sh"
-CERTBOT_EMAIL=""
+CERTBOT_EMAIL="zoemhay@gmail.com"
 
 ARMORY_IMAGE="armory-backend"
 E_COMMERCE_IMAGE="backend:e-commerce"
@@ -32,7 +22,7 @@ echo "Running preflight checks..."
 
 [[ -d "$APP_DIR" ]] || bail "$APP_DIR does not exist. Copy app files first."
 
-for f in proxy.service app1.service app2.service certbot-renew.service certbot-renew.timer; do
+for f in proxy.service e-commerce.service gw2-armory.service certbot-renew.service certbot-renew.timer; do
     [[ -f "$APP_DIR/services/$f" ]] || bail "Missing service file: $APP_DIR/$f"
 done
 
@@ -42,30 +32,17 @@ docker info &>/dev/null || bail "Docker is not running or this user cannot reach
 
 echo "Installing certbot..."
 if ! command -v certbot &>/dev/null; then
-    apt-get update -qq
-    apt-get install -y -qq certbot
+    dnf install -y certbot
     echo "Certbot installed: $(certbot --version 2>&1)"
 else
     echo "Certbot already installed: $(certbot --version 2>&1)"
 fi
 
-# `sudo ln -s /snap/bin/certbot /usr/bin/certbot`
-
-### Pull app images 
-
-echo "Pulling Docker images..."
-docker pull "$ARMORY_IMAGE"\
-    || bail "docker pull $ARMORY_IMAGE failed"
-docker pull "$E_COMMERCE_IMAGE"\
-    || bail "docker pull $E_COMMERCE_IMAGE failed"
-docker pull "$NGINX_PROXY_IMAGE"\
-    || bail "docker pull $NGINX_PROXY_IMAGE failed"
-
 ### Setup proxy-network
 
 echo "Checking for proxy-network..."
-if ! docker network inspect proxy-network &>/dev/null; then
-    docker network create proxy-network
+if ! docker network inspect proxy-net &>/dev/null; then
+    docker network create proxy-net
     echo "Created proxy-network"
 else
     echo "Docker proxy-network already exists."
@@ -118,9 +95,9 @@ echo "Hook installed at $NGINX_HOOK"
 
 for domain in gw2-armory.com zoemhay.com e-commerce.zoemhay.com angular-e-commerce.zoemhay.com; do
     if cert_exists "$domain"; then
-        log "Cert already exists for $domain -- skipping certbot."
+        echo "Cert already exists for $domain -- skipping certbot."
     else
-        log "Running certbot for $domain..."
+        echo "Running certbot for $domain..."
         certbot certonly \
             --webroot \
             --webroot-path "$CERTBOT_WEBROOT" \
@@ -129,7 +106,7 @@ for domain in gw2-armory.com zoemhay.com e-commerce.zoemhay.com angular-e-commer
             --email "$CERTBOT_EMAIL" \
             -d "$domain" \
             || bail "certbot failed for $domain"
-        log "Cert issued for $domain."
+        echo "Cert issued for $domain."
     fi
 done
 

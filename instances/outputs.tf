@@ -1,7 +1,9 @@
-output "public_ip" {
-  value = aws_instance.web.public_ip
+output "elastic_ip" {
+  description = "The Elastic IP address"
+  value       = aws_eip.main.public_ip
 }
 
-output "instance_public_dns" {
-  value = aws_instance.web.public_dns
+output "instance_id" {
+  description = "EC2 instance ID"
+  value       = aws_instance.main.id
 }
