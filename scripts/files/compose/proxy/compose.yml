@@ -1,6 +1,6 @@
 services:
   nginx:
-    image: nginx:tf-site
+    image: proxy-nginx
     container_name: nginx
     restart: always
     ports:

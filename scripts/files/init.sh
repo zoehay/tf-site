@@ -7,10 +7,6 @@ CERTBOT_WEBROOT="/var/www/certbot"
 NGINX_HOOK="/etc/letsencrypt/renewal-hooks/post/reload-nginx.sh"
 CERTBOT_EMAIL="zoemhay@gmail.com"
 
-ARMORY_IMAGE="armory-backend"
-E_COMMERCE_IMAGE="backend:e-commerce"
-NGINX_PROXY_IMAGE="nginx:tf-site"
-
 bail() { echo "[ERROR] $*" >&2; exit 1; }
 cert_exists() { [[ -f "/etc/letsencrypt/live/$1/fullchain.pem" ]]; }
 
@@ -23,7 +19,7 @@ echo "Running preflight checks..."
 [[ -d "$APP_DIR" ]] || bail "$APP_DIR does not exist. Copy app files first."
 
 for f in proxy.service e-commerce.service gw2-armory.service certbot-renew.service certbot-renew.timer; do
-    [[ -f "$APP_DIR/services/$f" ]] || bail "Missing service file: $APP_DIR/$f"
+    [[ -f "$APP_DIR/services/$f" ]] || bail "Missing service file: $APP_DIR/services/$f"
 done
 
 docker info &>/dev/null || bail "Docker is not running or this user cannot reach the socket."

@@ -155,7 +155,6 @@ resource "aws_instance" "main" {
     http_endpoint               = "enabled"
   }
 
-
   tags = {
     Name = "${local.name_prefix}-instance"
   }
