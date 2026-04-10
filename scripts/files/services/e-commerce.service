@@ -13,7 +13,7 @@ WorkingDirectory=/opt/app/site/compose/e-commerce
 
 ExecStart=/usr/bin/docker compose -f /opt/app/site/compose/e-commerce/compose.yml up --detach 
 ExecStop=/usr/bin/docker compose -f /opt/app/site/compose/e-commerce/compose.yml down
-ExecReload=/usr/bin/docker compose -f /opt/app/site/compose/e-commerce/compose.yml compose up -d --remove-orphans
+ExecReload=/usr/bin/docker compose -f /opt/app/site/compose/e-commerce/compose.yml up -d --remove-orphans
 
 Restart=on-failure
 RestartSec=10s

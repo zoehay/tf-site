@@ -6,8 +6,8 @@
 - `docker login` as ec2-user and `docker pull` images
 - Check that HTTPS blocks in nginx are commented out
 - Manually write secret files
-  - touch /opt/app/site/compose/e-commerce/secrets/ecom_db_password.txt
-  - touch /opt/app/site/compose/gw2-armory/secrets/armory_db_password.txt
+  - `touch /opt/app/site/compose/e-commerce/secrets/db_password.txt`
+  - `touch /opt/app/site/compose/gw2-armory/secrets/db_password.txt`
 - `sudo bash init.sh` to install certbot, setup docker network, install and start systemd services
 - un-comment HTTPS blocks in nginx files and `systemctl reload proxy.service`
 
