@@ -4,6 +4,7 @@ set -euo pipefail
 # Install Docker from AL2023 repos
 dnf update -y
 dnf install -y docker
+dnf install -y rsync
 systemctl enable docker
 systemctl start docker
 
