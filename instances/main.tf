@@ -3,34 +3,9 @@ provider "aws" {
   profile = "terraform"
 }
 
-data "aws_ami" "amazon_linux_2023" {
-  most_recent = true
-  owners      = ["amazon"]
-
-  filter {
-    name   = "name"
-    values = ["al2023-ami-*-arm64"]
-  }
-
-  filter {
-    name   = "architecture"
-    values = ["arm64"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  filter {
-    name   = "state"
-    values = ["available"]
-  }
-}
-
 locals {
   name_prefix = "tf-site"
-  ami_id      = data.aws_ami.amazon_linux_2023.id
+  ami_id      = "ami-04e0d7d889f694536" # al2023-ami-2023.11.20260514.0-kernel-6.12-arm64
 }
 
 data "aws_key_pair" "main" {
@@ -159,9 +134,6 @@ resource "aws_instance" "main" {
     Name = "${local.name_prefix}-instance"
   }
 
-  lifecycle {
-    ignore_changes = [ami]
-  }
 }
 
 resource "aws_eip" "main" {
