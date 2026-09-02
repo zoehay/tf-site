@@ -3,7 +3,8 @@ secrets/
 certs/
 .vscode
 data/
-www/
+scripts/*/compose/proxy/www/*
+!scripts/*/compose/proxy/www/static-site/
 
 .DS_Store
 Thumbs.db
