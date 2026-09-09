@@ -5,8 +5,8 @@ services:
     restart: always
     environment:
       - ARMORY_DB_PASSWORD_FILE=/run/secrets/db_password.txt
-      - CORS_ALLOW_ORIGIN='https://gw2-armory.com'
-      - DOMAIN='gw2-armory.com'
+      - CORS_ALLOW_ORIGIN=https://gw2-armory.com
+      - DOMAIN=gw2-armory.com
     volumes:
       - ./secrets/db_password.txt:/run/secrets/db_password.txt:ro
     networks:
