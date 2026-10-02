@@ -9,6 +9,12 @@
       content="Software projects by Zoe Hay, including a full-stack e-commerce application and an Angular rewrite."
     />
     <link rel="icon" href="./favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;1,400&display=swap"
+      rel="stylesheet"
+    />
     <link href="./resources/css/style.css" rel="stylesheet" />
   </head>
   <body>
@@ -27,73 +33,96 @@
     <main>
       <div class="wrap">
         <section class="section">
-          <h2>Projects</h2>
+          <div class="section-head">
+            <h2>Projects</h2>
+          </div>
 
           <article class="project">
-            <h2>E-Commerce Application</h2>
-            <ul class="tags">
-              <li>React</li>
-              <li>Express</li>
-              <li>PostgreSQL</li>
-              <li>Prisma</li>
-              <li>Jest</li>
-            </ul>
-            <p>
-              A simple e-commerce website built with an ExpressJS backend and
-              React frontend.
-            </p>
-            <a class="project-link" href="https://e-commerce.zoemhay.com"
-              >View live site</a
-            >
+            <dl class="project-spec">
+              <div>
+                <dt class="label">Stack</dt>
+                <dd>
+                  <ul class="tags">
+                    <li>React</li>
+                    <li>Express</li>
+                    <li>PostgreSQL</li>
+                    <li>Prisma</li>
+                    <li>Jest</li>
+                  </ul>
+                </dd>
+              </div>
+            </dl>
 
-            <h3>Backend</h3>
-            <p>
-              Node server written with Express. Prisma ORM interfaces with a
-              PostgreSQL database storing products, users, user sessions, and
-              user carts. Express-session and Passport.js manage user sessions
-              and authentication. Unit and integration tests are written with
-              Jest, with SuperTest for requests. The database is cleared before
-              each test or between test suites depending on test requirements.
-              Two Prisma schema files correspond to a "public" schema for
-              development and a "test" schema for testing; running "dev-init" or
-              "test-init" resets the given database and prepares it for
-              development or testing.
-            </p>
+            <div class="project-body">
+              <h2>E-Commerce Application</h2>
+              <p>
+                A simple e-commerce website built with an ExpressJS backend and
+                React frontend.
+              </p>
 
-            <h3>Frontend</h3>
-            <p>
-              React application using React Router and Styled Components. Allows
-              a user to view a feed of products. A user can sign in or register
-              to add products to their cart. Product quantity can be updated
-              from the cart page. User profile details can be updated from the
-              profile page.
-            </p>
+              <h3>Backend</h3>
+              <p>
+                Node server written with Express. Prisma ORM interfaces with a
+                PostgreSQL database storing products, users, user sessions, and
+                user carts. Express-session and Passport.js manage user sessions
+                and authentication. Unit and integration tests are written with
+                Jest, with SuperTest for requests. The database is cleared
+                before each test or between test suites depending on test
+                requirements. Two Prisma schema files correspond to a "public"
+                schema for development and a "test" schema for testing; running
+                "dev-init" or "test-init" resets the given database and prepares
+                it for development or testing.
+              </p>
 
-            <h3>To do</h3>
-            <p>
-              Checkout functionality, viewing prior orders, admin GUI
-              functionality, third-party login.
-            </p>
+              <h3>Frontend</h3>
+              <p>
+                React application using React Router and Styled Components.
+                Allows a user to view a feed of products. A user can sign in or
+                register to add products to their cart. Product quantity can be
+                updated from the cart page. User profile details can be updated
+                from the profile page.
+              </p>
+
+              <h3>To do</h3>
+              <p>
+                Checkout functionality, viewing prior orders, admin GUI
+                functionality, third-party login.
+              </p>
+
+              <a class="button primary" href="https://e-commerce.zoemhay.com"
+                >View live site &rarr;</a
+              >
+            </div>
           </article>
 
           <article class="project">
-            <h2>Angular E-Commerce Application</h2>
-            <ul class="tags">
-              <li>Angular</li>
-              <li>TypeScript</li>
-              <li>Express</li>
-              <li>PostgreSQL</li>
-            </ul>
-            <p>
-              A rewrite of the E-Commerce Application frontend using TypeScript
-              and Angular. This application shares the Node server and
-              PostgreSQL database made for the E-Commerce Application.
-            </p>
-            <a
-              class="project-link"
-              href="https://angular-e-commerce.zoemhay.com"
-              >View live site</a
-            >
+            <dl class="project-spec">
+              <div>
+                <dt class="label">Stack</dt>
+                <dd>
+                  <ul class="tags">
+                    <li>Angular</li>
+                    <li>TypeScript</li>
+                    <li>Express</li>
+                    <li>PostgreSQL</li>
+                  </ul>
+                </dd>
+              </div>
+            </dl>
+
+            <div class="project-body">
+              <h2>Angular E-Commerce Application</h2>
+              <p>
+                A rewrite of the E-Commerce Application frontend using
+                TypeScript and Angular. This application shares the Node server
+                and PostgreSQL database made for the E-Commerce Application.
+              </p>
+              <a
+                class="button primary"
+                href="https://angular-e-commerce.zoemhay.com"
+                >View live site &rarr;</a
+              >
+            </div>
           </article>
         </section>
       </div>

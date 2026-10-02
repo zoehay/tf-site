@@ -9,6 +9,12 @@
       content="Zoe Hay - problem solver with an Electrical Engineering background, now building and hosting software."
     />
     <link rel="icon" href="./favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;1,400&display=swap"
+      rel="stylesheet"
+    />
     <link href="./resources/css/style.css" rel="stylesheet" />
   </head>
   <body>
@@ -23,67 +29,97 @@
     </header>
 
     <main>
-      <div class="wrap">
-        <section class="hero">
+      <section class="hero">
+        <div class="wrap">
           <div class="hero-text">
-            <h1>Hi, I'm Zoe</h1>
+            <h1>Hi, I'm <span>Zoe</span></h1>
             <p>
               I am a problem solver with a degree in Electrical Engineering. For
               my first few years after college I exercised my methodical
               debugging skills and precise technical communication as a hardware
               engineer. Now I am looking for new problems to solve with
               software, which is part of why I learned to develop and host this
-              site. Check out my
-              <a href="./resources/ZoeHayResume.pdf">resume</a>, see my work on
-              <a href="https://github.com/zoehay">GitHub</a>, or find me on
-              <a href="https://www.linkedin.com/in/zhay/">LinkedIn</a>.
+              site.
             </p>
+            <div class="hero-links">
+              <a class="button primary" href="./resources/ZoeHayResume.pdf"
+                >Resume</a
+              >
+              <a class="button" href="https://github.com/zoehay">GitHub</a>
+              <a class="button" href="https://www.linkedin.com/in/zhay/"
+                >LinkedIn</a
+              >
+            </div>
           </div>
-          <picture class="hero-photo">
+          <figure class="hero-photo">
             <img
               src="./resources/images/profile_pic.jpg"
               alt="Portrait of Zoe Hay"
             />
-          </picture>
+            <figcaption><b>Fig. 1</b> Zoe Hay</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <div class="wrap">
+        <section class="section">
+          <div class="section-head">
+            <h2>Features</h2>
+          </div>
+          <ul class="features">
+            <li>Methodical debugging</li>
+            <li>Precise technical communication</li>
+            <li>BS and MS in Electrical Engineering</li>
+            <li>Builds and self-hosts full-stack web apps</li>
+          </ul>
         </section>
 
         <section class="section">
-          <h2>About</h2>
-
-          <div class="about-item">
-            <img
-              src="./resources/images/graduation.jpg"
-              alt="Zoe at graduation"
-            />
-            <p>
-              Graduated from California Polytechnic State University San Luis
-              Obispo with my BS degree.
-            </p>
+          <div class="section-head">
+            <h2>Background</h2>
           </div>
 
-          <div class="about-item">
-            <img src="./resources/images/thesis.jpg" alt="Thesis work" />
-            <p>
-              Stayed at Cal Poly to earn my MS degree. You can check out my
-              thesis
-              <a href="https://digitalcommons.calpoly.edu/theses/1913/">here</a
-              >.
-            </p>
-          </div>
+          <div class="figures">
+            <figure class="about-item">
+              <img
+                class="crop-top"
+                src="./resources/images/graduation.jpg"
+                alt="Zoe at graduation"
+              />
+              <span class="label">Fig. 2 &middot; BS, Cal Poly</span>
+              <p>
+                Graduated from California Polytechnic State University San Luis
+                Obispo with my BS degree.
+              </p>
+            </figure>
 
-          <div class="about-item">
-            <img
-              src="./resources/images/kappa.jpg"
-              alt="Lab bench at Analog Devices"
-            />
-            <p>
-              Evaluated analog integrated circuit power products as an
-              evaluation engineer for Analog Devices Inc. You can check out a
-              paper I contributed to over on
-              <a href="https://ieeexplore.ieee.org/document/9124150"
-                >IEEE Xplore</a
-              >.
-            </p>
+            <figure class="about-item">
+              <img src="./resources/images/thesis.jpg" alt="Thesis work" />
+              <span class="label">Fig. 3 &middot; MS, Cal Poly</span>
+              <p>
+                Stayed at Cal Poly to earn my MS degree. You can check out my
+                thesis
+                <a href="https://digitalcommons.calpoly.edu/theses/1913/"
+                  >here</a
+                >.
+              </p>
+            </figure>
+
+            <figure class="about-item">
+              <img
+                src="./resources/images/kappa.jpg"
+                alt="Lab bench at Analog Devices"
+              />
+              <span class="label">Fig. 4 &middot; Analog Devices</span>
+              <p>
+                Evaluated analog integrated circuit power products as an
+                evaluation engineer for Analog Devices Inc. You can check out a
+                paper I contributed to over on
+                <a href="https://ieeexplore.ieee.org/document/9124150"
+                  >IEEE Xplore</a
+                >.
+              </p>
+            </figure>
           </div>
         </section>
       </div>
