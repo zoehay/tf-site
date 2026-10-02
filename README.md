@@ -31,6 +31,12 @@ Terraform deployment of personal website and version control of required scripts
 - `scp ${image-name}.tar ec2-user@host:/opt/app/site/${image-name}.tar`
 - SSH in and pick up new image
 - `docker load -i ${image-name}.tar`
-- `sudo systemctl restart proxy.service`
+- pick up the new image in the service that uses it
+  - proxy-nginx: `sudo systemctl restart proxy.service`
+  - e-commerce: `sudo systemctl reload e-commerce.service`
+  - armory-backend: `sudo systemctl reload gw2-armory.service`
+  - backend `reload` runs `compose up -d`, recreating only the backend container and leaving the db running; use `restart` only to recreate the whole stack (e.g. after changing the .service file)
+- after reloading a backend service, also `sudo systemctl reload proxy.service`
+  - nginx resolves backend container IPs only at startup/reload, so a recreated backend container returns 502 until nginx reloads
 
 - cleanup old images `docker image prune -f`
