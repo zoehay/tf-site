@@ -40,3 +40,9 @@ Terraform deployment of personal website and version control of required scripts
   - nginx resolves backend container IPs only at startup/reload, so a recreated backend container returns 502 until nginx reloads
 
 - cleanup old images `docker image prune -f`
+
+## Deploying nginx config changes
+
+- `conf.d/*.conf` (directory mount): copy the changed file in, then `sudo systemctl reload proxy.service`
+- `nginx.conf` (single-file mount): copy it in, then `sudo systemctl restart proxy.service`
+  - a reload is not enough: scp/rsync replace the file rather than editing it in place, and a single-file bind mount keeps pointing at the old file until the container is recreated
