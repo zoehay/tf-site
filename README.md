@@ -13,9 +13,12 @@ Terraform deployment of personal website and version control of required scripts
 - `scp ${image-name}.tar ec2-user@host:/opt/app/site/${image-name}.tar`
 - `docker load -i ${image-name}.tar`
 - Check that HTTPS blocks in nginx are commented out
-- Manually write secret files
-  - `touch /opt/app/site/compose/e-commerce/secrets/db_password.txt`
-  - `touch /opt/app/site/compose/gw2-armory/secrets/db_password.txt`
+- Manually write secret files (must be non-empty or postgres will fail to initialize)
+  - `mkdir -p /opt/app/site/compose/{e-commerce,gw2-armory}/secrets`
+  - `openssl rand -hex 24 > /opt/app/site/compose/e-commerce/secrets/db_password.txt`
+  - `openssl rand -hex 24 > /opt/app/site/compose/gw2-armory/secrets/db_password.txt`
+  - `chmod 600 /opt/app/site/compose/{e-commerce,gw2-armory}/secrets/db_password.txt`
+  - armory-backend runs as distroless `nonroot` (uid 65532), so it must own its file: `sudo chown 65532:65532 /opt/app/site/compose/gw2-armory/secrets/db_password.txt`
 - Run init.sh to install certbot, setup docker network, install and start systemd services
 - `sudo bash /opt/app/site/init.sh`
 - un-comment HTTPS blocks in nginx files and `systemctl reload proxy.service`
