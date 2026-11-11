@@ -5,7 +5,7 @@ services:
     restart: always
     environment:
       - ARMORY_DB_PASSWORD_FILE=/run/secrets/db_password.txt
-      - CORS_ALLOW_ORIGIN='https://armory.localhost.com'
+      - CORS_ALLOW_ORIGIN=https://armory.localhost
     volumes:
       - ./secrets/db_password.txt:/run/secrets/db_password.txt:ro
     networks:
